@@ -1,7 +1,11 @@
 "use client"
-import LineChartPage from "@/components/charts/charts";
+import dynamic from 'next/dynamic';
 import Navbar from "@/components/navbar/Navbar";
-import Image from "next/image";
+
+const LineChartPage = dynamic(() => import("@/components/charts/charts"), { 
+  ssr: false,
+  loading: () => <p>Loading...</p>
+});
 
 export default function Home() {
   return (

@@ -2,19 +2,26 @@
 import * as React from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { PieChart } from '@mui/x-charts/PieChart'; // Import PieChart
-import { Card, IconButton, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { Card, Select, MenuItem, FormControl } from '@mui/material';
 import Inputs from '../Input/Inputs';
 
 export default function LineChartPage() {
-    const [inputRows, setInputRows] = React.useState<{ name: string; value: string }[]>(() => {
-        const savedRows = localStorage.getItem('inputRows');
-        return savedRows ? JSON.parse(savedRows) : [{ name: '', value: '' }];
-    });
-    const [data, setData] = React.useState<{ id: number; value: number; label: string }[]>(() => {
-        const savedData = localStorage.getItem('chartData');
-        return savedData ? JSON.parse(savedData) : [];
-    });
+    const [inputRows, setInputRows] = React.useState<{ name: string; value: string }[]>([{ name: '', value: '' }]);
+    const [data, setData] = React.useState<{ id: number; value: number; label: string }[]>([]);
     const [chartType, setChartType] = React.useState<'line' | 'pie'>('line'); // State for chart type
+
+    React.useEffect(() => {
+        // Load data from localStorage only on the client side
+        const savedRows = localStorage.getItem('inputRows');
+        if (savedRows) {
+            setInputRows(JSON.parse(savedRows));
+        }
+
+        const savedData = localStorage.getItem('chartData');
+        if (savedData) {
+            setData(JSON.parse(savedData));
+        }
+    }, []);
 
     // Handler to add a new input row
     const addInputRow = () => {
@@ -76,6 +83,8 @@ export default function LineChartPage() {
         localStorage.removeItem('inputRows'); // Clear local storage
     };
 
+    const windowWidth = typeof window !== "undefined" ? window.innerWidth : 640; // Handle window width safely
+
     return (
         <div className='p-5 md:p-9 flex flex-col justify-center items-center'>
             <Card className='p-3 md:p-10 w-full max-w-[800px]'>
@@ -93,7 +102,7 @@ export default function LineChartPage() {
                 {chartType === 'line' ? (
                     <LineChart
                         colors={['#1976D2']} // Primary color for chart line
-                        width={window.innerWidth > 640 ? 750 : window.innerWidth - 40} // Responsive width
+                        width={windowWidth > 640 ? 750 : windowWidth - 40} // Responsive width
                         height={250}
                         series={[{ data: data.map(d => d.value), label: 'User Input Data' }]} // Corrected series format
                         xAxis={[{ scaleType: 'point', data: data.map(d => d.label) }]} // Use user input names for x-axis
@@ -101,7 +110,7 @@ export default function LineChartPage() {
                 ) : (
                     <PieChart
                         series={[{ data: data }]} // Send data in the required format for PieChart
-                        width={window.innerWidth > 640 ? 750 : window.innerWidth - 40} // Responsive width
+                        width={windowWidth > 640 ? 750 : windowWidth - 40} // Responsive width
                         height={250}
                     />
                 )}
