@@ -73,7 +73,7 @@ function Inputs({ inputRows, handleInputChange, addInputRow, removeInputRow, sub
             </Button>
 
             {/* Clear Data Button */}
-            <Button onClick={clearData} variant='outlined' color='error' className='mt-4' sx={{
+            <Button onClick={clearData} variant='outlined' color='error' sx={{
                 marginLeft: 2
             }}>
                 Clear Chart
