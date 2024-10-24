@@ -28,6 +28,12 @@ export default function Navbar() {
                     >
                         Chats
                     </Link>
+                    <Link 
+                        href="/bs" 
+                        className="inline-flex no-underline items-center px-3 py-2 text-sm font-semibold text-gray-900 hover:text-[#1976D2] hover:bg-gray-50 rounded-md transition-colors duration-200"
+                    >
+                        Bootstrap 5
+                    </Link>
                 </div>
 
 
@@ -53,6 +59,12 @@ export default function Navbar() {
                         className="block no-underline items-center px-3 py-2 text-sm font-semibold text-gray-900 hover:text-[#1976D2] hover:bg-gray-50 rounded-md transition-colors duration-200"
                     >
                         Chats
+                    </Link>
+                    <Link 
+                        href="/bs" 
+                        className="block no-underline items-center px-3 py-2 text-sm font-semibold text-gray-900 hover:text-[#1976D2] hover:bg-gray-50 rounded-md transition-colors duration-200"
+                    >
+                        Bootstrap 5
                     </Link>
                 </div>
             </div>
