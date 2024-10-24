@@ -4,6 +4,7 @@ import { LineChart } from '@mui/x-charts/LineChart';
 import { PieChart } from '@mui/x-charts/PieChart'; // Import PieChart
 import { Card, Select, MenuItem, FormControl } from '@mui/material';
 import Inputs from '../Input/Inputs';
+import toast from 'react-hot-toast';
 
 export default function LineChartPage() {
     const [inputRows, setInputRows] = React.useState<{ name: string; value: string }[]>([{ name: '', value: '' }]);
@@ -74,6 +75,7 @@ export default function LineChartPage() {
         setData(newData);
         localStorage.setItem('chartData', JSON.stringify(newData)); // Save chart data to local storage
         localStorage.setItem('inputRows', JSON.stringify(inputRows));
+        return toast.success('Data saved succesfully')
     };
 
     const clearData = () => {
